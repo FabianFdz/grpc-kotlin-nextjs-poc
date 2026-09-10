@@ -115,8 +115,7 @@ Implementation is tracked as five epics with a strict dependency chain:
 Inventory Service (CRUD/streaming/`ReserveItem`/`GetItemWithPricing`) →
 **E4** External Third-Party Integration (`EnrichItem`) → **E5** Next.js
 Frontend & E2E Wiring. Definitions and current status live in
-`../docs/epics/epic-status.md` and `../docs/epics/E{n}-*.md` — **one
-directory above this repo root, outside git version control here**.
-Managed by the `sprint-runner` plugin (`epic-creator` skill drafted them;
-`/sprint` plans and builds against them). Check `epic-status.md` before
-assuming what's already implemented.
+`docs/epics/epic-status.md` and `docs/epics/E{n}-*.md`. Managed by the
+`sprint-runner` plugin (`epic-creator` skill drafted them; `/sprint` plans
+and builds against them). Check `epic-status.md` before assuming what's
+already implemented.
