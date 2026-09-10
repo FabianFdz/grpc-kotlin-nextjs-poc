@@ -1,0 +1,14 @@
+{
+  "name": "grpc-kotlin-nextjs-poc",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --filter @poc/web dev",
+    "build": "pnpm --filter @poc/web build",
+    "generate": "pnpm --filter @poc/contracts generate"
+  },
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=9"
+  }
+}

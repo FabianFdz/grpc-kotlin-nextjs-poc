@@ -1,0 +1,14 @@
+// pricing.proto — contract for the Pricing service.
+//
+// STATUS: scaffold only. No messages or service definitions yet.
+// This header lists the full RPC surface to be implemented in a later pass.
+//
+// RPCs to implement:
+//
+//   GetPrice — unary. Given an item id, returns the base price, any active
+//              discount, and a promotion label. Consumed internally by
+//              inventory-service (via PricingServiceClient) to serve
+//              GetItemWithPricing.
+//
+// TODO: define request/response messages and the `service Pricing { ... }`
+// block above, once implementation begins.

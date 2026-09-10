@@ -1,0 +1,24 @@
+# buf.gen.yaml — codegen wiring for both proto packages (inventory, pricing).
+#
+# TypeScript output feeds packages/contracts, which is consumed as a
+# versioned workspace package by apps/web.
+#
+# Kotlin output lands in generated/kotlin. Because ts-proto/protoc-gen-kotlin
+# emit one file tree per proto package, the inventory.v1 sources and
+# pricing.v1 sources end up in separate package directories under that root
+# even though they're generated in a single pass — inventory-service only
+# needs to add com/poc/inventory/v1/** as a source dir, and pricing-service
+# only com/poc/pricing/v1/**. This keeps a single buf.gen.yaml instead of
+# maintaining one per service.
+version: v2
+plugins:
+  - remote: buf.build/community/stephenh-ts-proto
+    out: packages/contracts/generated/ts
+    opt:
+      - esModuleInterop=true
+      - outputServices=grpc-js
+      - useOptionals=messages
+  - remote: buf.build/protocolbuffers/kotlin
+    out: generated/kotlin
+  - remote: buf.build/grpc/kotlin
+    out: generated/kotlin

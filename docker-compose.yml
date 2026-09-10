@@ -1,0 +1,33 @@
+services:
+  inventory-service:
+    build:
+      context: .
+      dockerfile: apps/inventory-service/Dockerfile
+    ports:
+      - "50051:50051"
+    environment:
+      GRPC_PORT: "50051"
+      DUMMYJSON_BASE_URL: "https://dummyjson.com"
+      PRICING_SERVICE_ADDRESS: "pricing-service:50052"
+    depends_on:
+      - pricing-service
+
+  pricing-service:
+    build:
+      context: .
+      dockerfile: apps/pricing-service/Dockerfile
+    ports:
+      - "50052:50052"
+    environment:
+      GRPC_PORT: "50052"
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      INVENTORY_SERVICE_ADDRESS: "inventory-service:50051"
+    depends_on:
+      - inventory-service

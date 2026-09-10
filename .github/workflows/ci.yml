@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: lint
+        run: echo "TODO: run pnpm lint (web) once app code exists"
+
+      - name: buf-breaking
+        run: echo "TODO: run buf breaking --against '.git#branch=main' once proto/ has real definitions"
+
+      - name: build-inventory-service
+        run: echo "TODO: run ./gradlew :inventory-service:build once Gradle wrapper + implementation exist"
+
+      - name: build-pricing-service
+        run: echo "TODO: run ./gradlew :pricing-service:build once Gradle wrapper + implementation exist"
+
+      - name: test-inventory-service
+        run: echo "TODO: run ./gradlew :inventory-service:test (covers DummyProductClientTest) once implementation exists"
+
+      - name: build-web
+        run: echo "TODO: run pnpm --filter @poc/web build once app code exists"

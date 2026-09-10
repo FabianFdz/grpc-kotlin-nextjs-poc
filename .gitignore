@@ -1,0 +1,25 @@
+# Node / pnpm
+node_modules/
+.pnpm-store/
+npm-debug.log*
+
+# Next.js
+.next/
+apps/web/next-env.d.ts
+
+# Codegen output (regenerate via `pnpm generate`, don't commit)
+packages/contracts/generated/
+generated/
+
+# Gradle / Kotlin
+.gradle/
+build/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# OS
+.DS_Store
+*.tsbuildinfo

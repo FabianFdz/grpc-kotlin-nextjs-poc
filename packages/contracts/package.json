@@ -1,0 +1,13 @@
+{
+  "name": "@poc/contracts",
+  "version": "0.1.0",
+  "description": "TypeScript types generated from proto/ via buf + ts-proto, consumed by apps/web.",
+  "private": true,
+  "main": "generated/ts/index.ts",
+  "types": "generated/ts/index.ts",
+  "scripts": {
+    "generate": "buf generate --template ../../buf.gen.yaml ../../proto"
+  },
+  "//publishConfig": "TODO: once this package needs to be consumed outside the npm workspace (e.g. published to a private registry for independent versioning), set private=false above and add a publishConfig block here (registry, access) plus a real semver bump strategy tied to buf breaking-change checks.",
+  "devDependencies": {}
+}

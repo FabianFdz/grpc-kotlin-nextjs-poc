@@ -1,0 +1,33 @@
+// inventory.proto — contract for the Inventory service.
+//
+// STATUS: scaffold only. No messages or service definitions yet.
+// This header lists the full RPC surface to be implemented in a later pass.
+//
+// RPCs to implement:
+//
+//   CreateItem        — unary. Standard CRUD: create a new inventory item.
+//   GetItem           — unary. Standard CRUD: fetch an item by id.
+//   UpdateItem        — unary. Standard CRUD: update an existing item.
+//   DeleteItem        — unary. Standard CRUD: delete an item by id.
+//   ListItems         — unary. Standard CRUD: list all items (optionally paginated).
+//
+//   WatchStock        — server streaming. Emits stock-level updates for an
+//                       item (or all items) as they occur.
+//
+//   ReserveItem       — unary. Reserves stock for an item. Can fail with
+//                       NOT_FOUND (unknown item) or FAILED_PRECONDITION
+//                       (insufficient stock).
+//
+//   EnrichItem        — unary. Calls DummyProductClient asynchronously to
+//                       fetch supplementary product data from the external
+//                       DummyJSON API and merges it into the stored item.
+//
+//   GetItemWithPricing — unary. Calls pricing-service via internal gRPC
+//                       (see PricingServiceClient) to attach current
+//                       price/promotion data to an item. This RPC
+//                       demonstrates internal service-to-service
+//                       integration, including graceful degradation when
+//                       pricing-service is unavailable.
+//
+// TODO: define request/response messages and the `service Inventory { ... }`
+// block above, once implementation begins.
