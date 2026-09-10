@@ -18,10 +18,10 @@ jobs:
         run: echo "TODO: run buf breaking --against '.git#branch=main' once proto/ has real definitions"
 
       - name: build-inventory-service
-        run: echo "TODO: run ./gradlew :inventory-service:build once Gradle wrapper + implementation exist"
+        run: echo "TODO: run ./gradlew :inventory-service:build once implementation exists"
 
       - name: build-pricing-service
-        run: echo "TODO: run ./gradlew :pricing-service:build once Gradle wrapper + implementation exist"
+        run: echo "TODO: run ./gradlew :pricing-service:build once implementation exists"
 
       - name: test-inventory-service
         run: echo "TODO: run ./gradlew :inventory-service:test (covers DummyProductClientTest) once implementation exists"

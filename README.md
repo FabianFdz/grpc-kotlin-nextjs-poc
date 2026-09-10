@@ -143,12 +143,17 @@ grpc-kotlin-nextjs-poc/
 └── docker-compose.yml        # local multi-service run
 ```
 
-## Setup (once implementation lands)
+## Setup
 
 ```bash
 pnpm install
+./gradlew build      # both Kotlin services (JDK 17+ required; wrapper uses Gradle 9.7.1)
+```
+
+Once `proto/` has real message/service definitions:
+
+```bash
 pnpm generate        # buf generate -> packages/contracts + generated/kotlin
 pnpm dev             # apps/web
-./gradlew build      # both Kotlin services (requires a Gradle wrapper + JDK 17+, not yet added)
 docker compose up    # all three services together
 ```

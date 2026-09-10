@@ -47,4 +47,8 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+    // DummyProductClientTest has no @Test methods yet at the scaffold
+    // stage (see its TODO) — don't fail the build on zero discovered
+    // tests. Safe to remove once real test methods are added.
+    failOnNoDiscoveredTests = false
 }
