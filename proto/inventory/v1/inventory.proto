@@ -1,40 +1,10 @@
 // inventory.proto — contract for the Inventory service.
 //
 // STATUS: minimal proving pair only (epic E1). `GetItem` is defined and real;
-// the rest of the RPC surface below is deferred to the epic named in each
-// TODO, not implemented here.
+// the rest of the RPC surface is deferred to the epic named below.
 //
-// Deferred RPCs:
-//
-//   CreateItem        — unary. Standard CRUD: create a new inventory item.
-//                       TODO(E3): define and implement.
-//   UpdateItem        — unary. Standard CRUD: update an existing item.
-//                       TODO(E3): define and implement.
-//   DeleteItem        — unary. Standard CRUD: delete an item by id.
-//                       TODO(E3): define and implement.
-//   ListItems         — unary. Standard CRUD: list all items (optionally
-//                       paginated). TODO(E3): define and implement.
-//
-//   WatchStock        — server streaming. Emits stock-level updates for an
-//                       item (or all items) as they occur.
-//                       TODO(E3): define and implement.
-//
-//   ReserveItem       — unary. Reserves stock for an item. Can fail with
-//                       NOT_FOUND (unknown item) or FAILED_PRECONDITION
-//                       (insufficient stock). TODO(E3): define and implement.
-//
-//   EnrichItem        — unary. Calls DummyProductClient asynchronously to
-//                       fetch supplementary product data from the external
-//                       DummyJSON API and merges it into the stored item.
-//                       TODO(E4): define and implement.
-//
-//   GetItemWithPricing — unary. Calls pricing-service via internal gRPC
-//                       (see PricingServiceClient) to attach current
-//                       price/promotion data to an item. This RPC
-//                       demonstrates internal service-to-service
-//                       integration, including graceful degradation when
-//                       pricing-service is unavailable.
-//                       TODO(E3): define and implement.
+// Deferred: CreateItem, UpdateItem, DeleteItem, ListItems, WatchStock,
+// ReserveItem (TODO(E3)); EnrichItem (TODO(E4)); GetItemWithPricing (TODO(E3)).
 syntax = "proto3";
 
 package inventory.v1;
@@ -42,9 +12,7 @@ package inventory.v1;
 option java_package = "com.poc.inventory.v1";
 option java_multiple_files = true;
 
-// Item is deliberately minimal for this proving pair; E3/E4 add fields as a
-// purely additive, non-breaking change. No price field — pricing is
-// pricing-service's concern, composed later by GetItemWithPricing.
+// No price field — that's pricing-service's concern, composed by GetItemWithPricing.
 message Item {
   string id = 1;
   string name = 2;
@@ -61,7 +29,6 @@ message GetItemResponse {
 }
 
 service InventoryService {
-  // GetItem fetches an item by id. Returns NOT_FOUND if no item exists for
-  // the given item_id. Not implemented in this epic.
+  // Returns NOT_FOUND if item_id doesn't exist.
   rpc GetItem(GetItemRequest) returns (GetItemResponse);
 }
