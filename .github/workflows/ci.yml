@@ -14,7 +14,7 @@ jobs:
           fetch-depth: 0
 
       - name: lint
-        run: echo "TODO: run pnpm lint (web) once app code exists"
+        run: 'echo "TODO: run pnpm lint (web) once app code exists"'
 
       # Version pin must track the local buf version documented in CLAUDE.md.
       - uses: bufbuild/buf-setup-action@v1
@@ -29,13 +29,13 @@ jobs:
         run: buf breaking --against ".git#branch=origin/main"
 
       - name: build-inventory-service
-        run: echo "TODO: run ./gradlew :inventory-service:build once implementation exists"
+        run: 'echo "TODO: run ./gradlew :inventory-service:build once implementation exists"'
 
       - name: build-pricing-service
-        run: echo "TODO: run ./gradlew :pricing-service:build once implementation exists"
+        run: 'echo "TODO: run ./gradlew :pricing-service:build once implementation exists"'
 
       - name: test-inventory-service
-        run: echo "TODO: run ./gradlew :inventory-service:test (covers DummyProductClientTest) once implementation exists"
+        run: 'echo "TODO: run ./gradlew :inventory-service:test (covers DummyProductClientTest) once implementation exists"'
 
       - name: build-web
-        run: echo "TODO: run pnpm --filter @poc/web build once app code exists"
+        run: 'echo "TODO: run pnpm --filter @poc/web build once app code exists"'
