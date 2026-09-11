@@ -1,0 +1,11 @@
+{
+  "sprint": 1,
+  "from": "reviewer",
+  "to": "human",
+  "status": "approved",
+  "timestamp": "2026-09-11T00:10:15Z",
+  "payload": {
+    "ticket": "E1-T01",
+    "prs": ["https://github.com/FabianFdz/grpc-kotlin-nextjs-poc/pull/3"]
+  }
+}

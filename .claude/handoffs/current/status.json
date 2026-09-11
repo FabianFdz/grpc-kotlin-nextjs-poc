@@ -2,13 +2,13 @@
   "sprint": 1,
   "plan": "done",
   "designPr": "https://github.com/FabianFdz/grpc-kotlin-nextjs-poc/pull/2",
-  "designMerged": "pending",
+  "designMerged": "done",
   "tickets": {
     "E1-T01": {
       "design": "done",
-      "code": "pending",
-      "codeReview": "pending",
-      "status": "pending",
+      "code": "done",
+      "codeReview": "approved",
+      "status": "done",
       "merged": "pending"
     },
     "E1-T02": {
@@ -35,5 +35,5 @@
   },
   "docsUpdated": "pending",
   "sprintStatus": "in_progress",
-  "updatedAt": "2026-09-10T20:44:55Z"
+  "updatedAt": "2026-09-11T00:10:15Z"
 }

@@ -1,33 +1,34 @@
 // inventory.proto — contract for the Inventory service.
 //
-// STATUS: scaffold only. No messages or service definitions yet.
-// This header lists the full RPC surface to be implemented in a later pass.
+// STATUS: minimal proving pair only (epic E1). `GetItem` is defined and real;
+// the rest of the RPC surface is deferred to the epic named below.
 //
-// RPCs to implement:
-//
-//   CreateItem        — unary. Standard CRUD: create a new inventory item.
-//   GetItem           — unary. Standard CRUD: fetch an item by id.
-//   UpdateItem        — unary. Standard CRUD: update an existing item.
-//   DeleteItem        — unary. Standard CRUD: delete an item by id.
-//   ListItems         — unary. Standard CRUD: list all items (optionally paginated).
-//
-//   WatchStock        — server streaming. Emits stock-level updates for an
-//                       item (or all items) as they occur.
-//
-//   ReserveItem       — unary. Reserves stock for an item. Can fail with
-//                       NOT_FOUND (unknown item) or FAILED_PRECONDITION
-//                       (insufficient stock).
-//
-//   EnrichItem        — unary. Calls DummyProductClient asynchronously to
-//                       fetch supplementary product data from the external
-//                       DummyJSON API and merges it into the stored item.
-//
-//   GetItemWithPricing — unary. Calls pricing-service via internal gRPC
-//                       (see PricingServiceClient) to attach current
-//                       price/promotion data to an item. This RPC
-//                       demonstrates internal service-to-service
-//                       integration, including graceful degradation when
-//                       pricing-service is unavailable.
-//
-// TODO: define request/response messages and the `service Inventory { ... }`
-// block above, once implementation begins.
+// Deferred: CreateItem, UpdateItem, DeleteItem, ListItems, WatchStock,
+// ReserveItem (TODO(E3)); EnrichItem (TODO(E4)); GetItemWithPricing (TODO(E3)).
+syntax = "proto3";
+
+package inventory.v1;
+
+option java_package = "com.poc.inventory.v1";
+option java_multiple_files = true;
+
+// No price field — that's pricing-service's concern, composed by GetItemWithPricing.
+message Item {
+  string id = 1;
+  string name = 2;
+  string sku = 3;
+  int32 quantity_available = 4;
+}
+
+message GetItemRequest {
+  string item_id = 1;
+}
+
+message GetItemResponse {
+  Item item = 1;
+}
+
+service InventoryService {
+  // Returns NOT_FOUND if item_id doesn't exist.
+  rpc GetItem(GetItemRequest) returns (GetItemResponse);
+}
