@@ -1,10 +1,12 @@
 # grpc-kotlin-nextjs-poc
 
-> **Status: scaffold only, implementation pending.** This repo currently
-> contains folder structure, config files, and placeholder/stub files with
-> `TODO` comments. No RPC handlers, UI components, external API calls,
-> tests, or generated code exist yet — see the `TODO` comment in each stub
-> file for what belongs there.
+> **Status: contract & codegen foundation done (epic E1); services and
+> frontend still scaffold.** `proto/` defines real messages/services for
+> one RPC per service (`GetItem`, `GetPrice`), and `pnpm generate` produces
+> compiling TypeScript, Java, and Kotlin from them (see
+> `docs/architecture.md`). No RPC handlers, UI components, external API
+> calls, or tests exist yet — see the `TODO` comment in each stub file, and
+> `docs/epics/epic-status.md`, for what's next.
 
 A portfolio PoC demonstrating end-to-end communication across:
 
@@ -20,14 +22,14 @@ A portfolio PoC demonstrating end-to-end communication across:
 ```mermaid
 flowchart LR
     subgraph contracts["Contract pipeline"]
-        proto["proto/*.proto"] -->|buf generate| codegen["ts-proto + protoc-gen-kotlin"]
+        proto["proto/*.proto"] -->|buf generate, 5 pinned plugins| codegen["ts-proto + protobuf/grpc\njava + kotlin"]
         codegen --> contractsPkg["@poc/contracts\n(TS types)"]
-        codegen --> kotlinGen["generated/kotlin"]
+        codegen --> kotlinGen["generated/java\ngenerated/kotlin"]
     end
 
     contractsPkg --> web["Next.js (apps/web)\nserver-side @grpc/grpc-js"]
-    kotlinGen --> inventory
-    kotlinGen --> pricing
+    kotlinGen -.->|"not wired in yet (E2/E3)"| inventory
+    kotlinGen -.->|"not wired in yet (E2/E3)"| pricing
 
     web -->|gRPC unary + server streaming| inventory["inventory-service"]
 
@@ -138,22 +140,27 @@ grpc-kotlin-nextjs-poc/
 │   ├── inventory-service/    # Kotlin gRPC service (CRUD, streaming, external + internal calls)
 │   ├── pricing-service/      # Kotlin gRPC service (pricing lookups)
 │   └── web/                  # Next.js App Router frontend
-├── generated/kotlin/         # buf-generated Kotlin stubs (gitignored)
+├── generated/java/           # buf-generated Java message/gRPC classes (gitignored)
+├── generated/kotlin/         # buf-generated Kotlin DSL builders + coroutine stubs (gitignored)
+├── tools/codegen-verify/     # temporary module proving generated Java/Kotlin compiles (ADR-2)
 ├── buf.yaml / buf.gen.yaml   # codegen + breaking-change config
 └── docker-compose.yml        # local multi-service run
 ```
+
+See `docs/architecture.md` for how the pieces fit together and
+`docs/adr/` for the codegen decisions behind them.
 
 ## Setup
 
 ```bash
 pnpm install
-./gradlew build      # both Kotlin services (JDK 17+ required; wrapper uses Gradle 9.7.1)
+pnpm generate        # buf generate -> packages/contracts/generated/ts + generated/java + generated/kotlin
+./gradlew build      # both Kotlin services (JDK 21 via mise; wrapper uses Gradle 9.7.1)
 ```
 
-Once `proto/` has real message/service definitions:
+Not wired up yet (tracked in `docs/epics/epic-status.md`):
 
 ```bash
-pnpm generate        # buf generate -> packages/contracts + generated/kotlin
-pnpm dev             # apps/web
-docker compose up    # all three services together
+pnpm dev             # apps/web — no real pages yet
+docker compose up    # all three services — Dockerfiles are placeholders until E5
 ```
