@@ -9,22 +9,25 @@ Kotlin services.
 
 ## Status
 
-Scaffold only. No generated code exists yet — `proto/` currently contains
-header comments describing the intended RPC surface, not real message or
-service definitions.
+`GetItem` / `GetPrice` codegen only (epic E1's minimal proving pair). Import
+via the subpath exports below, not a package-root import.
+
+```ts
+import { GetItemRequest } from "@poc/contracts/inventory/v1";
+import { GetPriceRequest } from "@poc/contracts/pricing/v1";
+```
 
 ## Generating
 
-Once the proto files have real definitions:
-
 ```bash
-npm run generate --workspace @poc/contracts
+pnpm generate
 ```
 
-This runs `buf generate` against the repo-root `buf.gen.yaml`, which also
-emits the Kotlin stubs used by `inventory-service` and `pricing-service` in
-the same pass. Output lands in `generated/ts/` (gitignored — regenerate
-rather than hand-edit).
+(from the repo root; runs `buf generate` against the repo-root `buf.gen.yaml`,
+which also emits the Kotlin stubs used by `inventory-service` and
+`pricing-service` in the same pass). Output lands in `generated/ts/`
+(gitignored — regenerate rather than hand-edit). Type-check it with
+`pnpm --filter @poc/contracts typecheck`.
 
 ## Versioning
 

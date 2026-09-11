@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "pnpm --filter @poc/web dev",
     "build": "pnpm --filter @poc/web build",
-    "generate": "pnpm --filter @poc/contracts generate"
+    "generate": "buf generate --template buf.gen.yaml proto"
   },
   "engines": {
     "node": ">=20",
