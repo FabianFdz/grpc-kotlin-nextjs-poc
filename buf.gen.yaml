@@ -3,13 +3,14 @@
 # TypeScript output feeds packages/contracts, which is consumed as a
 # versioned workspace package by apps/web.
 #
-# Kotlin output lands in generated/kotlin. Because ts-proto/protoc-gen-kotlin
-# emit one file tree per proto package, the inventory.v1 sources and
-# pricing.v1 sources end up in separate package directories under that root
-# even though they're generated in a single pass — inventory-service only
-# needs to add com/poc/inventory/v1/** as a source dir, and pricing-service
-# only com/poc/pricing/v1/**. This keeps a single buf.gen.yaml instead of
-# maintaining one per service.
+# Kotlin output needs Java alongside it: protocolbuffers/kotlin and grpc/kotlin
+# only emit DSL builders and coroutine stubs, which reference the message
+# classes and *Grpc descriptors that protocolbuffers/java and grpc/java emit
+# (see ADR-1). Java lands in generated/java, Kotlin in generated/kotlin — two
+# trees, both split per proto package (com/poc/inventory/v1, com/poc/pricing/v1)
+# so each service adds only its own package later. All five plugins are pinned
+# to versions matching the runtime deps in apps/*/build.gradle.kts (ADR-1) —
+# bump them together, never independently.
 version: v2
 plugins:
   - remote: buf.build/community/stephenh-ts-proto:v2.12.1
@@ -18,7 +19,11 @@ plugins:
       - esModuleInterop=true
       - outputServices=grpc-js
       - useOptionals=messages
-  - remote: buf.build/protocolbuffers/kotlin
+  - remote: buf.build/protocolbuffers/java:v25.3
+    out: generated/java
+  - remote: buf.build/grpc/java:v1.65.1
+    out: generated/java
+  - remote: buf.build/protocolbuffers/kotlin:v25.3
     out: generated/kotlin
-  - remote: buf.build/grpc/kotlin
+  - remote: buf.build/grpc/kotlin:v1.4.1
     out: generated/kotlin
