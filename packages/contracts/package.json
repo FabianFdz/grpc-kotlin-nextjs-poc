@@ -3,11 +3,20 @@
   "version": "0.1.0",
   "description": "TypeScript types generated from proto/ via buf + ts-proto, consumed by apps/web.",
   "private": true,
-  "main": "generated/ts/index.ts",
-  "types": "generated/ts/index.ts",
+  "exports": {
+    "./inventory/v1": "./generated/ts/inventory/v1/inventory.ts",
+    "./pricing/v1": "./generated/ts/pricing/v1/pricing.ts"
+  },
   "scripts": {
-    "generate": "buf generate --template ../../buf.gen.yaml ../../proto"
+    "generate": "cd ../.. && buf generate --template buf.gen.yaml proto",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "//publishConfig": "TODO: once this package needs to be consumed outside the npm workspace (e.g. published to a private registry for independent versioning), set private=false above and add a publishConfig block here (registry, access) plus a real semver bump strategy tied to buf breaking-change checks.",
-  "devDependencies": {}
+  "dependencies": {
+    "@bufbuild/protobuf": "^2.14.1",
+    "@grpc/grpc-js": "^1.10.9"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0"
+  }
 }

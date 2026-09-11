@@ -9,11 +9,11 @@
       "code": "done",
       "codeReview": "approved",
       "status": "done",
-      "merged": "pending"
+      "merged": "done"
     },
     "E1-T02": {
       "design": "done",
-      "code": "pending",
+      "code": "done",
       "codeReview": "pending",
       "status": "pending",
       "merged": "pending"
@@ -35,5 +35,5 @@
   },
   "docsUpdated": "pending",
   "sprintStatus": "in_progress",
-  "updatedAt": "2026-09-11T00:10:15Z"
+  "updatedAt": "2026-09-11T00:24:53Z"
 }
