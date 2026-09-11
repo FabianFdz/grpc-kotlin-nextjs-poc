@@ -10,12 +10,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: lint
         run: echo "TODO: run pnpm lint (web) once app code exists"
 
-      - name: buf-breaking
-        run: echo "TODO: run buf breaking --against '.git#branch=main' once proto/ has real definitions"
+      # Version pin must track the local buf version documented in CLAUDE.md.
+      - uses: bufbuild/buf-setup-action@v1
+        with:
+          version: 1.72.0
+          github_token: ${{ github.token }}
+
+      - name: buf lint
+        run: buf lint
+
+      - name: buf breaking
+        run: buf breaking --against ".git#branch=origin/main"
 
       - name: build-inventory-service
         run: echo "TODO: run ./gradlew :inventory-service:build once implementation exists"
